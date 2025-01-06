@@ -10,6 +10,8 @@ body {
     font-family: "Poppins", serif;
 }
 
+/* //////////Navbar//////////// */
+
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -47,7 +49,7 @@ body {
     height: 18px;
 }
 
-/* ////////////////////// */
+/* //////////Breadcrumb//////////// */
 
 .breadcrumb {
     height: 250px;
@@ -106,7 +108,7 @@ body {
     margin-bottom: 1rem;
 }
 
-/* ////////////////////// */
+/* //////////Cart//////////// */
 
 .cart-container {
     margin: 2rem 6rem;
@@ -158,6 +160,7 @@ body {
     padding: 0.5rem;
     border: 1px solid #ddd;
     border-radius: 4px;
+    text-align: center;
 }
 
 .delete-btn {
@@ -209,7 +212,7 @@ body {
     color: #b88e2f;
 }
 
-/* ////////////////////// */
+/* //////////Footer//////////// */
 
 footer {
     background-color: #faf4f0;
@@ -247,7 +250,6 @@ footer {
     font-size: 0.9rem;
 }
 
-/* Responsive design */
 @media (max-width: 768px) {
     .features-container {
         flex-wrap: wrap;
