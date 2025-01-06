@@ -250,27 +250,6 @@ footer {
     font-size: 0.9rem;
 }
 
-@media (max-width: 768px) {
-    .features-container {
-        flex-wrap: wrap;
-        gap: 1.5rem;
-    }
-
-    .feature {
-        width: calc(50% - 1rem);
-    }
-}
-
-@media (max-width: 480px) {
-    .features-container {
-        flex-direction: column;
-    }
-
-    .feature {
-        width: 100%;
-    }
-}
-
 /* //////////Loader//////////// */
 
 .loader {
@@ -363,4 +342,127 @@ footer {
 .btn-confirm {
     background: #ff4444;
     color: white;
+}
+
+/* //////////Responsive layout//////////// */
+
+@media (max-width: 768px) {
+    .navbar {
+        padding: 1rem 2rem;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .nav-links {
+        gap: 2rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .nav-icons {
+        gap: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar {
+        padding: 1rem;
+    }
+
+    .nav-links {
+        gap: 1rem;
+    }
+
+    .nav-icons {
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 1024px) {
+    .cart-container {
+        margin: 2rem;
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .cart-container {
+        margin: 1rem;
+    }
+
+    .cart-header {
+        display: none;
+    }
+
+    .cart-item {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        text-align: left;
+        padding: 1.5rem 1rem;
+    }
+
+    .product-image {
+        width: 80px;
+        height: 80px;
+    }
+
+    .quantity-control {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .quantity-control::before {
+        content: 'Quantity:';
+        color: #666;
+    }
+
+    .subtotal {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .subtotal::before {
+        content: 'Subtotal:';
+        color: #666;
+    }
+
+    .delete-btn {
+        margin: 0;
+        text-align: right;
+    }
+}
+
+@media (max-width: 768px) {
+    .breadcrumb {
+        height: 200px;
+    }
+
+    .breadcrumb h2 {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .breadcrumb {
+        height: 150px;
+    }
+}
+
+@media (max-width: 768px) {
+    .features-container {
+        flex-direction: column;
+        margin: 1rem;
+    }
+
+    .feature img {
+        height: 35px;
+    }
+}
+
+@media (max-width: 768px) {
+    .modal-content {
+        margin: 0 1rem;
+    }
 }
