@@ -39,12 +39,12 @@
                 <div class="header-item">Price</div>
                 <div class="header-item">Quantity</div>
                 <div class="header-item">Subtotal</div>
-                <div class="header-item">ddd</div>
+                <div class="header-item"></div>
             </div>
 
             <div class="cart-item">
                 <div class="product-info">
-                    <img src="" alt="Asgaard sofa" class="product-image">
+                    <img src="https://placehold.co/481x391?text=loading" alt="Asgaard sofa" class="product-image">
                     <span class="product-name">Asgaard sofa</span>
                 </div>
                 <div class="product-price">Rs. 250,000.00</div>
@@ -109,6 +109,21 @@
             </div>
         </div>
     </footer>
+
+    <div class="loader" id="loader">
+        <div class="spinner"></div>
+    </div>
+
+    <div class="modal" id="deleteModal">
+        <div class="modal-content">
+            <h3>Remove Item</h3>
+            <p>Are you sure you want to remove this item from your cart?</p>
+            <div class="modal-buttons">
+                <button class="btn-cancel">Cancel</button>
+                <button class="btn-confirm">Remove</button>
+            </div>
+        </div>
+    </div>
 
     <script src="cart.js" defer></script>
 </body>

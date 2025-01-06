@@ -1,3 +1,19 @@
+// Show/hide loader
+const toggleLoader = (show) => {
+    document.getElementById('loader').classList.toggle('active', show);
+};
+
+// Save cart to local storage
+const saveCartToLocalStorage = (cartData) => {
+    localStorage.setItem('cartData', JSON.stringify(cartData));
+};
+
+// Get cart from local storage
+const getCartFromLocalStorage = () => {
+    const cartData = localStorage.getItem('cartData');
+    return cartData ? JSON.parse(cartData) : null;
+};
+
 // Format price to Indian Rupees
 const formatPrice = (price) => {
     return new Intl.NumberFormat('en-IN', {
@@ -7,15 +23,66 @@ const formatPrice = (price) => {
     }).format(price / 100);
 };
 
+// Show confirm delete modal
+const showModal = (itemId, confirmCallback) => {
+    const modal = document.getElementById('deleteModal');
+    modal.classList.add('active');
+
+    const confirmBtn = modal.querySelector('.btn-confirm');
+    const cancelBtn = modal.querySelector('.btn-cancel');
+
+    const handleConfirm = () => {
+        confirmCallback();
+        closeModal();
+    };
+
+    const handleCancel = () => {
+        closeModal();
+    };
+
+    confirmBtn.addEventListener('click', handleConfirm);
+    cancelBtn.addEventListener('click', handleCancel);
+
+    modal.addEventListener('close', () => {
+        confirmBtn.removeEventListener('click', handleConfirm);
+        cancelBtn.removeEventListener('click', handleCancel);
+    });
+};
+
+const closeModal = () => {
+    const modal = document.getElementById('deleteModal');
+    modal.classList.remove('active');
+    modal.dispatchEvent(new Event('close'));
+};
+
 // Fetch and display cart data
 async function fetchCartData() {
+    toggleLoader(true);
     try {
+        const localCartData = getCartFromLocalStorage();
+
         const response = await fetch('https://cdn.shopify.com/s/files/1/0883/2188/4479/files/apiCartData.json?v=1728384889');
         const data = await response.json();
+
+        // await new Promise(resolve => setTimeout(resolve, 3000));
+
+        if (localCartData) {
+            data.items = data.items.map(item => {
+                const storedItem = localCartData.items.find(i => i.id === item.id);
+                if (storedItem) {
+                    return { ...item, quantity: storedItem.quantity };
+                }
+                return item;
+            });
+        }
+
         displayCartItems(data);
         updateCartTotals(data);
+        saveCartToLocalStorage(data);
     } catch (error) {
         console.error('Error fetching cart data:', error);
+    } finally {
+        toggleLoader(false);
     }
 }
 
@@ -38,6 +105,10 @@ function createCartItemElement(item) {
     cartItem.className = 'cart-item';
     cartItem.dataset.itemId = item.id;
 
+    const localCartData = getCartFromLocalStorage();
+    const storedItem = localCartData?.items.find(i => i.id === item.id);
+    const quantity = storedItem ? storedItem.quantity : item.quantity;
+
     cartItem.innerHTML = `
         <div class="product-info">
             <img src="${item.featured_image.url}" alt="${item.title}" class="product-image">
@@ -45,10 +116,10 @@ function createCartItemElement(item) {
         </div>
         <div class="product-price">${formatPrice(item.price)}</div>
         <div class="quantity-control">
-            <input type="number" value="${item.quantity}" min="1" data-item-id="${item.id}">
+            <input type="number" value="${quantity}" min="1" data-item-id="${item.id}">
         </div>
         <div class="subtotal">
-            ${formatPrice(item.price * item.quantity)}
+            ${formatPrice(item.price * quantity)}
         </div>
         <div class="delete-btn">
             <img src="./assets/icons/trash.png" alt="Delete" data-item-id="${item.id}">
@@ -74,14 +145,33 @@ function handleQuantityChange(event) {
     }
 
     updateCartItem(itemId, newQuantity);
+
+    const cartData = getCartFromLocalStorage();
+    if (cartData) {
+        const item = cartData.items.find(item => item.id === parseInt(itemId));
+        if (item) {
+            item.quantity = newQuantity;
+            saveCartToLocalStorage(cartData);
+        }
+    }
 }
 
 // Handle delete item
 function handleDeleteItem(event) {
     const itemId = event.currentTarget.querySelector('img').dataset.itemId;
-    const cartItem = document.querySelector(`.cart-item[data-item-id="${itemId}"]`);
-    cartItem.remove();
-    updateCartTotals();
+
+    showModal(itemId, () => {
+        const cartItem = document.querySelector(`.cart-item[data-item-id="${itemId}"]`);
+        cartItem.remove();
+
+        updateCartTotals();
+
+        const cartData = getCartFromLocalStorage();
+        if (cartData) {
+            cartData.items = cartData.items.filter(item => item.id !== parseInt(itemId));
+            saveCartToLocalStorage(cartData);
+        }
+    });
 }
 
 // Update cart totals
@@ -117,4 +207,4 @@ document.addEventListener('DOMContentLoaded', () => {
     checkoutBtn.addEventListener('click', () => {
         alert('Proceeding to checkout!');
     });
-}); 
+});
