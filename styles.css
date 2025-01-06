@@ -1,0 +1,270 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Poppins", serif;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 4rem;
+    background-color: white;
+}
+
+.logo img {
+    height: 30px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 3.5rem;
+}
+
+.nav-item {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+}
+
+.nav-icons {
+    display: flex;
+    gap: 2.5rem;
+}
+
+.nav-icons a {
+    color: #333;
+    text-decoration: none;
+}
+
+.nav-icons img {
+    height: 18px;
+}
+
+/* ////////////////////// */
+
+.breadcrumb {
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    position: relative;
+    overflow: hidden;
+    color: #000;
+}
+
+.breadcrumb::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("./assets/banner.webp");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: blur(2px);
+    z-index: -2;
+}
+
+.breadcrumb::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.5);
+    z-index: -1;
+}
+
+.breadcrumb>* {
+    position: relative;
+    z-index: 1;
+}
+
+.breadcrumb h2 {
+    font-size: 2rem;
+    font-weight: 500;
+}
+
+.breadcrumb p span {
+    font-weight: 500;
+}
+
+.logo-small img {
+    height: 30px;
+    margin-bottom: 1rem;
+}
+
+/* ////////////////////// */
+
+.cart-container {
+    margin: 2rem 6rem;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+    padding: 0 1rem;
+}
+
+.cart-header {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+    padding: 1rem;
+    background-color: #faf4f0;
+    font-weight: 500;
+    text-align: center;
+}
+
+.cart-item {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+    padding: 1rem;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    text-align: center;
+}
+
+.product-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.product-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    background-color: #faf4f0;
+    padding: 0.5rem;
+}
+
+.product-name,
+.product-price {
+    color: #aaa;
+}
+
+.quantity-control input {
+    width: 60px;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.delete-btn {
+    border: none;
+    background: none;
+    cursor: pointer;
+    margin-left: 1rem;
+}
+
+.cart-totals {
+    background-color: #faf4f0;
+    padding: 2rem;
+    font-weight: 500;
+}
+
+.cart-totals h2 {
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.totals-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+.checkout-btn {
+    display: block;
+    margin: 0 auto;
+    width: 200px;
+    padding: 1rem;
+    margin-top: 1.5rem;
+    background-color: transparent;
+    border: 2px solid #333;
+    border-radius: 15px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.checkout-btn:hover {
+    background-color: #333;
+    color: white;
+}
+
+.amount {
+    color: #b88e2f;
+}
+
+/* ////////////////////// */
+
+footer {
+    background-color: #faf4f0;
+    padding: 2rem 0;
+    margin-top: 2rem;
+}
+
+.features-container {
+    margin: 3rem 6rem;
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 0 2rem;
+}
+
+.feature {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.feature img {
+    height: 50px;
+}
+
+.feature-content h3 {
+    font-size: 1.1rem;
+    color: #333;
+    margin-bottom: 0.25rem;
+    font-weight: 600;
+}
+
+.feature-content p {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .features-container {
+        flex-wrap: wrap;
+        gap: 1.5rem;
+    }
+
+    .feature {
+        width: calc(50% - 1rem);
+    }
+}
+
+@media (max-width: 480px) {
+    .features-container {
+        flex-direction: column;
+    }
+
+    .feature {
+        width: 100%;
+    }
+}
