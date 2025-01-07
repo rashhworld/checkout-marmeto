@@ -93,6 +93,14 @@ function displayCartItems(data) {
     cartItemsContainer.innerHTML = '';
     cartItemsContainer.appendChild(cartHeader);
 
+    if (!data.items || data.items.length === 0) {
+        const noItemsMessage = document.createElement('div');
+        noItemsMessage.className = 'no-items-message';
+        noItemsMessage.textContent = 'No items in the cart found.';
+        cartItemsContainer.appendChild(noItemsMessage);
+        return;
+    }
+
     data.items.forEach(item => {
         const cartItem = createCartItemElement(item);
         cartItemsContainer.appendChild(cartItem);
@@ -129,7 +137,7 @@ function createCartItemElement(item) {
     const quantityInput = cartItem.querySelector('input');
     quantityInput.addEventListener('change', handleQuantityChange);
 
-    const deleteBtn = cartItem.querySelector('.delete-btn');
+    const deleteBtn = cartItem.querySelector('.delete-btn img');
     deleteBtn.addEventListener('click', handleDeleteItem);
 
     return cartItem;
@@ -158,7 +166,7 @@ function handleQuantityChange(event) {
 
 // Handle delete item
 function handleDeleteItem(event) {
-    const itemId = event.currentTarget.querySelector('img').dataset.itemId;
+    const itemId = event.target.dataset.itemId;
 
     showModal(itemId, () => {
         const cartItem = document.querySelector(`.cart-item[data-item-id="${itemId}"]`);
@@ -170,6 +178,7 @@ function handleDeleteItem(event) {
         if (cartData) {
             cartData.items = cartData.items.filter(item => item.id !== parseInt(itemId));
             saveCartToLocalStorage(cartData);
+            displayCartItems(cartData);
         }
     });
 }
@@ -187,6 +196,12 @@ function updateCartTotals() {
 
     document.querySelector('.totals-row .product-price').textContent = formatPrice(subtotal * 100);
     document.querySelector('.total .amount').textContent = formatPrice(subtotal * 100);
+
+    if (subtotal === 0) {
+        document.querySelector('.checkout-btn').style.display = 'none';
+    } else {
+        document.querySelector('.checkout-btn').style.display = 'block';
+    }
 }
 
 // Update individual cart item

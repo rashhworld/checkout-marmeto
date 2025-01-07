@@ -10,6 +10,10 @@ body {
     font-family: "Poppins", serif;
 }
 
+img {
+    -webkit-tap-highlight-color: transparent;
+}
+
 /* //////////Navbar//////////// */
 
 .navbar {
@@ -210,6 +214,11 @@ body {
 
 .amount {
     color: #b88e2f;
+}
+
+.no-items-message {
+    text-align: center;
+    margin-top: 2rem;
 }
 
 /* //////////Footer//////////// */
